@@ -6,9 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kg.malikov.youtubeapp.app.R
 import com.kg.malikov.youtubeapp.app.data.models.playlistinfo.Item
-import com.kg.malikov.youtubeapp.app.data.models.playlistinfo.PlaylistInfo
 import com.kg.malikov.youtubeapp.app.interfaces.ItemClick
-import com.kg.malikov.youtubeapp.app.data.models.playlists.PlaylistItem
 import com.kg.malikov.youtubeapp.app.utils.gone
 import com.kg.malikov.youtubeapp.app.utils.loadImage
 import kotlinx.android.synthetic.main.item_playlist.view.*
@@ -44,9 +42,9 @@ class InfoPlaylistAdapter(
     inner class InfoPlayListHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: Item) {
             itemView.item_playlist_text_view_hint.gone()
-            itemView.item_playlist_text_view_title_playList.text = item.snippet?.title
-            itemView.item_playlist_text_view_amount_video.text = item.snippet?.description
-            itemView.item_playlist_image_playlist.loadImage(item.snippet?.thumbnails?.medium?.url!!)
+            itemView.item_playlist_text_view_title_playList.text = item.snippet.title
+            itemView.item_playlist_text_view_amount_video.text = item.snippet.description
+            itemView.item_playlist_image_playlist.loadImage(item.snippet.thumbnails.medium?.url!!)
             itemView.setOnClickListener {
                 listener?.onClick(adapterPosition)
             }

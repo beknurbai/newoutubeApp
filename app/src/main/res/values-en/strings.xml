@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">YoutubeApp</string>
+    <string name="action_settings">Settings</string>
+    <string name="amount_video">1 video series</string>
+    <string name="playlist_name_example">Emotional Well-being &amp; Healing Practices for Children</string>
+    <string name="playlist_hint_hint">playlist</string>
+
+</resources>

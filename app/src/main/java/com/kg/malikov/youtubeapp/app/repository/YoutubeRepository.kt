@@ -40,19 +40,21 @@ class YoutubeRepository(
     private var dao: PlayListDao,
     private var daoInfo: PlayListInfoDao
 ) : BaseRepository() {
+
+    //fun for fetch Playlists from network
     fun fetchPlaylists(pageToken: String?) = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
-        //emit(Resource.fetchFromDB(dao.getPlaylist()))
         try {
             val request = api.fetchPlayLists(PART, KEY, CHANNEL_ID, MAX_RESULT, pageToken)
             dao.insert(request)
             emit(Resource.success(data = request))
-            Log.d("ololo", "olol: "+dao.getPlaylistByNextPageToken(pageToken) )
+            Log.d("ololo", "olol: " + dao.getPlaylistByNextPageToken(pageToken))
         } catch (e: Exception) {
             emit(Resource.error(data = null, message = e.message ?: "Error"))
         }
     }
 
+    //fun for fetch Playlists from db
     fun fetchPlaylistsDb(pageToken: String?) = liveData(Dispatchers.IO) {
         emit(Resource.fetchFromDB(dao.getPlaylist()))
         try {
@@ -65,28 +67,29 @@ class YoutubeRepository(
     }
 
 
-
-
-    fun fetchInfoPlaylists(playlistId: String?, pageToken: String?) = liveData(Dispatchers.IO) {
+    //fun for fetch Info Playlists by id from network
+    fun     fetchInfoPlaylists(playlistId: String?, pageToken: String?) = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
         try {
             val result= api.fetchPlaylistById(PART, KEY, playlistId, pageToken)
             result.let {
-                result.playlistApiId=result.items[0].snippet.playlistId
+                result.playlistApiId = result.items[0].snippet.playlistId
                 daoInfo.insertDetailsPlaylist(result)
             }
-            emit(Resource.success(data =result ))
-            Log.d("ololod", "fetchInfoPlaylists: "+daoInfo.getDetailsPlaylistById(playlistId) )
+            emit(Resource.success(data = result))
+            Log.d("ololod", "fetchInfoPlaylists: " + daoInfo.getDetailsPlaylistById(playlistId))
         } catch (e: Exception) {
             emit(Resource.error(data = null, message = e.message ?: "Error"))
         }
     }
+
+    //fun for fetch Info Playlists by id from db
     fun fetchInfoPlaylistDb(playlistId: String?, pageToken: String?) = liveData(Dispatchers.IO) {
         emit(Resource.fetchFromDB(daoInfo.getDetailsPlaylistById(playlistId)))
         try {
-            val result= api.fetchPlaylistById(PART, KEY, playlistId, pageToken)
-            emit(Resource.success(data = result ))
-            Log.d("ololos", "fetchInfoPlaylists: "+daoInfo.getDetailsPlaylistById(playlistId) )
+            val result = api.fetchPlaylistById(PART, KEY, playlistId, pageToken)
+            emit(Resource.success(data = result))
+            Log.d("ololos", "fetchInfoPlaylists: " + daoInfo.getDetailsPlaylistById(playlistId))
         } catch (e: Exception) {
             emit(Resource.error(data = null, message = e.message ?: "Error"))
         }

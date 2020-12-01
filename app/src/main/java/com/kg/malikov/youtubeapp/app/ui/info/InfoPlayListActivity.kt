@@ -4,11 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import com.kg.malikov.youtubeapp.app.R
 import com.kg.malikov.youtubeapp.app.base.BaseActivity
-
 import com.kg.malikov.youtubeapp.app.data.models.playlists.PlaylistItem
 import com.kg.malikov.youtubeapp.app.interfaces.ItemClick
+import com.kg.malikov.youtubeapp.app.ui.detail_video.DetailVideoActivity
 import com.kg.malikov.youtubeapp.app.ui.info.adapter.InfoPlaylistAdapter
-import com.kg.malikov.youtubeapp.app.utils.showToast
 import kotlinx.android.synthetic.main.content_scrolling.*
 import org.koin.android.ext.android.inject
 
@@ -21,7 +20,11 @@ class InfoPlayListActivity : BaseActivity<InfoPlaylistViewModel>(
 
 
     override fun onClick(pos: Int) {
-        showToast(pos.toString())
+        val intent = Intent(this, DetailVideoActivity::class.java)
+        intent.putExtra("title", adapter.data[pos].snippet.title)
+        intent.putExtra("desc", adapter.data[pos].snippet.description)
+        intent.putExtra("image", adapter.data[pos].snippet.thumbnails.medium?.url)
+        startActivity(intent)
     }
 
     override fun setupLiveData() {
@@ -57,7 +60,6 @@ class InfoPlayListActivity : BaseActivity<InfoPlaylistViewModel>(
     }
 
     companion object {
-
         var playlist: PlaylistItem? = null
         fun instanceActivity(activity: Activity?, playlist: PlaylistItem) {
             val intent = Intent(activity, InfoPlayListActivity::class.java)

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kg.malikov.youtubeapp.app">
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -12,10 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.YoutubeApp">
+        <activity android:name=".ui.detail_video.DetailVideoActivity" />
         <activity
             android:name=".ui.info.InfoPlayListActivity"
-            android:label="@string/title_activity_info_play_list"
-            android:theme="@style/Theme.YoutubeApp.NoActionBar"></activity>
+            android:theme="@style/Theme.YoutubeApp.NoActionBar" />
         <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
